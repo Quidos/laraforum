@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->integer('topic')->unsigned();
-            $table->integer('author')->unsigned();
-            $table->dateTime('date');
+            $table->integer('thread_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->dateTime('date')->default(now());
             $table->text('content');
             $table->timestamps();
         });
