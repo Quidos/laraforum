@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ThreadController extends Controller
 {
     public function index(Category $category) {
-        $threads = $category->threads()->paginate(20);
+        $threads = $category->threads()->with('posts')->paginate(20);
         return view('threads.index', compact('threads', 'category'));
     }
 

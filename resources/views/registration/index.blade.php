@@ -3,7 +3,7 @@
 <div class="mt-40 flex justify-center">
     <form class="flex flex-col bg-white p-10 border rounded" action="{{ route('registration') }}" method="post">
         @csrf
-        <input class="p-2" type="text" name="name" id="name" placeholder="name">
+        <input class="p-2" type="text" name="name" id="name" placeholder="name" autofocus>
         @error('name')
             <div class="text-red-600">{{ $message }}</div>
         @enderror

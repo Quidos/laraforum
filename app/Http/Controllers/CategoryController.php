@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = Category::with('threads')->get();
+        $categories = Category::with(['threads.posts'])->get();
+        //dd($categories);
         $noUsers = User::count();
         $latestThreads = Thread::latest()->take(5)->get();
         return view('categories.index', compact('categories', 'noUsers', 'latestThreads'));
