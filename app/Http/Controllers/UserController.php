@@ -14,7 +14,7 @@ class UserController extends Controller
     }
 
     public function show(User $user, Request $req) {
-        $threads = $user->threads;
+        $threads = $user->threads()->paginate(5);
         return view('user.show', compact('user', 'threads'));
     }
 

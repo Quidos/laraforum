@@ -31,6 +31,19 @@ class FriendshipController extends Controller
         return redirect()->back();
     }
 
-    public function destroy() {
+    public function cancel(User $user)
+    {
+        Auth::user()->pendingFriendsTo()->detach($user);
+        return redirect()->back();
+    }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+        $authUser = Auth::user();
+        $authUser->friendsTo()->detach($user);
+        $authUser->friendsFrom()->detach($user);
+
+        return redirect()->back();
     }
 }

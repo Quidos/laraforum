@@ -14,7 +14,7 @@
             <div class="flex">
                 <a class="mr-2" href="{{ route('categories') }}">Home</a>
                 @auth
-                    <a class="mr-2" href="{{ route('messages.noParameter') }}">Friends & Messages</a>
+                    <a class="mr-2" href="{{ route('messages', Auth::user()->id) }}">Messages</a>
                 @endauth
             </div>
         </div>

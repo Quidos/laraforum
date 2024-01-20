@@ -55,11 +55,13 @@ class User extends Authenticatable
 
     public function friendsTo() {
         return $this->belongsToMany(User::class, 'friendships', 'user_id', 'friend_id')
+        ->withPivot('accepted')
         ->withTimestamps();
     }
 
     public function friendsFrom() {
         return $this->belongsToMany(User::class, 'friendships', 'friend_id', 'user_id')
+        ->withPivot('accepted')
         ->withTimestamps();
     }
 
@@ -74,6 +76,10 @@ class User extends Authenticatable
     public function pendingFriendsTo()
     {
         return $this->friendsTo()->wherePivot('accepted', false);
+    }
+
+    public function pendingFriendsToExists(User $user) {
+        return $this->pendingFriendsTo()->where('users.id', $user->id)->exists();
     }
 
     public function pendingFriendsFrom()
@@ -96,6 +102,32 @@ class User extends Authenticatable
     }
 
     public function acceptedFriends() {
-        return $this->acceptedFriendsFrom->merge($this->acceptedFriendsTo);
+        return $this->mergedRelationWithModel(User::class, 'accepted_friends_view');
+    }
+
+    public function acceptedFriendExists(User $user) {
+        return !$this->acceptedFriends->where('id', $user->id)->isEmpty();
+    }
+
+    // --------------------
+
+    public function sentMessages() {
+        return $this->hasMany(Message::class, 'sender_id', 'id');
+    }
+
+    public function receivedMessages() {
+        return $this->hasMany(Message::class, 'receiver_id', 'id');
+    }
+
+    public function messages()
+    {
+        return $this->mergedRelationWithModel(User::class, 'messages_view')->orderBy('created_at', 'desc');
+    }
+
+    public function messagesWith(User $user)
+    {
+        $sent = $this->sentMessages()->where('receiver_id', $user->id)->get();
+        $received = $this->receivedMessages()->where('sender_id', $user->id)->get();
+        return $sent->merge($received)->sortByDesc('created_at');
     }
 }

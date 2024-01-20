@@ -5,11 +5,18 @@
         @foreach ($categories as $category)
             <div>
                 <a class="p-3 bg-gray-300 block" href="{{ route('threads', $category->id) }}">{{ $category->name }}</a>
-                @foreach ($category->threads as $thread)
-                    <div class="m-2 ml-4">
-                        <a class="text-blue-500 hover:text-blue-900" href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a>
-                    </div>
-                @endforeach
+                <div class="mt-2 mb-4">
+                    @foreach ($category->threads as $thread)
+                        <div class="">
+                            <a class="text-blue-500 hover:text-blue-900"
+                            href="{{ route('threads.show', $thread->id) }}">
+                                <div class="p-2 border rounded border-gray-300 hover:bg-gray-100">
+                                    {{ $thread->title }}
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         @endforeach
     </div>
@@ -18,8 +25,12 @@
         <div class="mt-2">
         Latest threads:
         @foreach ($latestThreads as $thread)
-            <a class="text-blue-500 hover:text-blue-900 block p-1"
-            href="{{ route('threads.show', $thread->id) }}">{{ $thread->title }}</a>
+            <a class="text-blue-500 hover:text-blue-900 block"
+            href="{{ route('threads.show', $thread->id) }}">
+                <div class="p-2 border rounded border-gray-300">
+                    {{ $thread->title }}
+                </div>
+            </a>
         @endforeach
         </div>
     </div>

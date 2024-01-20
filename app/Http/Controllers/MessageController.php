@@ -11,16 +11,27 @@ class MessageController extends Controller
     public function index(User $user) {
         $authUser = Auth::user();
         $pending = $authUser->pendingFriendsFrom;
-        $acceptedFriends = $authUser->acceptedFriends();
-        return view('messages.index', compact('pending', 'acceptedFriends'));
+        $acceptedFriends = $authUser->acceptedFriends;
+        $messages = $authUser->messagesWith($user);
+        //dd($messages);
+        $chatUser = $user;
+        return view('messages.index', compact('pending', 'acceptedFriends', 'chatUser', 'messages'));
     }
 
-    public function noParameter() {
-        $user = User::find(4);
-        return redirect()->route('messages', $user->id);
-    }
+    public function store(User $user, Request $req) {
+        $authUser = Auth::user();
 
-    public function store(Request $req) {
+        $req->validate([
+            'content' => 'required'
+        ]);
+
+        if(!$authUser->acceptedFriendExists($user)) abort(403);
+
+        Auth::user()->sentMessages()->create([
+            'content' => $req->content,
+            'receiver_id' => $user->id
+        ]);
+        return redirect()->back();
     }
 
     public function destroy() {

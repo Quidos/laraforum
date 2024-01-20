@@ -44,10 +44,12 @@ Route::delete('thread/{thread}/posts/{post}/delete', [PostController::class, 'de
 
 Route::get('user/{user:name}', [UserController::class, 'show'])->name('user.show');
 
-Route::get('messages', [MessageController::class, 'noParameter'])->name('messages.noParameter')->middleware('auth');
 Route::get('messages/{user}', [MessageController::class, 'index'])->name('messages')->middleware('auth');
+Route::post('messages/{user}/store', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
 
 Route::get('friendships', [FriendshipController::class, 'index'])->name('friendships')->middleware('auth');
 Route::post('friendships/{user}/store', [FriendshipController::class, 'store'])->name('friendships.store');
-Route::post('friendships/{user}/accept', [FriendshipController::class, 'accept'])->name('friendships.acccept');
+Route::post('friendships/{user}/accept', [FriendshipController::class, 'accept'])->name('friendships.accept');
 Route::post('friendships/{user}/decline', [FriendshipController::class, 'decline'])->name('friendships.decline');
+Route::post('friendships/{user}/cancel', [FriendshipController::class, 'cancel'])->name('friendships.cancel');
+Route::delete('friendships/{user}/delete', [FriendshipController::class, 'destroy'])->name('friendships.destroy');
