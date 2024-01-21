@@ -1,6 +1,6 @@
 # Laraforum
 
-This is a simple forum made in Laravel.
+This is a simple forum made in Laravel. It has basic forum functionality with categories, threads and posts, and also implements a simple friendship system with chat functionality.
 
 ## Installation
 
@@ -24,10 +24,14 @@ npm install
 
 Copy '.env.example' into '.env', then set up your database credentials (DB_DATABASE, DB_USERNAME, and DB_PASSWORD)
 
-### Run migrations
+### Optional: set up default categories
+
+If you want to set up custom categories, change the $categories arra in 'database/seeders/CategorySeeder.php'.
+
+### Run migrations and seed the database
 
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
 
 ### Start the dev server
@@ -40,4 +44,16 @@ php artisan serve
 
 ### Categories index
 
-![2024-01-20_20-51](https://github.com/Quidos/laraforum/assets/52010846/f01e22d8-39df-4890-b72b-5c75dc8cc86d)
+![2024-01-21_13-45](https://github.com/Quidos/laraforum/assets/52010846/4d81d7d4-6740-4a3e-aad9-b333711d70b2)
+
+### Threads show
+
+![2024-01-21_13-45_1](https://github.com/Quidos/laraforum/assets/52010846/713f4348-825d-446a-9627-34e882a95c6a)
+
+### User index
+
+![2024-01-21_13-44_1](https://github.com/Quidos/laraforum/assets/52010846/27d05440-0bd9-43ce-b9cc-a3ce407371b0)
+
+### Messages index
+
+![2024-01-21_13-44](https://github.com/Quidos/laraforum/assets/52010846/92d1befd-be7c-4a7d-8ee5-dad4e4f1a89b)
