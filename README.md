@@ -24,6 +24,12 @@ npm install
 
 Copy '.env.example' into '.env', then set up your database credentials (DB_DATABASE, DB_USERNAME, and DB_PASSWORD)
 
+### Generate an application key
+
+```
+php artisan key:generate
+```
+
 ### Optional: set up default categories
 
 If you want to set up custom categories, change the $categories array in 'database/seeders/CategorySeeder.php'.
@@ -35,6 +41,10 @@ php artisan migrate --seed
 ```
 
 ### Start the dev server
+
+```
+npm run dev
+```
 
 ```
 php artisan serve
