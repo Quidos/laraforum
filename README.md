@@ -26,7 +26,7 @@ Copy '.env.example' into '.env', then set up your database credentials (DB_DATAB
 
 ### Optional: set up default categories
 
-If you want to set up custom categories, change the $categories arra in 'database/seeders/CategorySeeder.php'.
+If you want to set up custom categories, change the $categories array in 'database/seeders/CategorySeeder.php'.
 
 ### Run migrations and seed the database
 
